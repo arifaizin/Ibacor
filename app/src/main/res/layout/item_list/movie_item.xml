@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardview"
+        android:layout_margin="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/gambar"
+                android:layout_width="80dp"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/judul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_toRightOf="@+id/gambar"
+                android:lines="2"
+                android:text="JUDUL"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:id="@+id/genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/judul"
+                android:layout_below="@+id/judul"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:text="Genre" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="2dp">-->
+
+    <!--<RelativeLayout-->
+    <!--android:padding="@dimen/activity_horizontal_margin"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent" >-->
+
+    <!--<com.android.volley.toolbox.NetworkImageView-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:id="@+id/gambar"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true"/>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+    <!--android:text="Judul"-->
+    <!--android:id="@+id/judul"-->
+    <!--android:lines="2"-->
+    <!--android:layout_alignTop="@+id/gambar"-->
+    <!--android:layout_toRightOf="@+id/gambar"-->
+    <!--android:layout_toEndOf="@+id/gambar" />-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+    <!--android:text="genre"-->
+    <!--android:id="@+id/genre"-->
+    <!--android:lines="1"-->
+    <!--android:layout_below="@+id/judul"-->
+    <!--android:layout_alignLeft="@+id/judul"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--/>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+    <!--android:text="id"-->
+    <!--android:visibility="gone"-->
+    <!--android:id="@+id/id"-->
+    <!--android:layout_below="@+id/gambar"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="49dp" />-->
+
+
+    <!--</RelativeLayout>-->
+    <!--</android.support.v7.widget.CardView>-->
+
+</RelativeLayout>
