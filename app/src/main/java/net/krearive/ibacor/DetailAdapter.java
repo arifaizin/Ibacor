@@ -16,12 +16,12 @@ import java.util.List;
 
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder>{
 
-    List<JadwalList> jadwalLists;
+    List<MovieList> movieLists;
     Context context; // supaya bisa dipakai di kelas lain
 
     //buat constructor
-    public DetailAdapter(List<JadwalList> jadwalLists, Context context) {
-        this.jadwalLists = jadwalLists;
+    public DetailAdapter(List<MovieList> movieLists, Context context) {
+        this.movieLists = movieLists;
         this.context = context;
     }
 
@@ -53,9 +53,9 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(DetailAdapter.ViewHolder holder, int position) {
-        final JadwalList JadwalList = jadwalLists.get(position);
-        holder.harga.setText(JadwalList.getHarga());
-        holder.bioskop.setText(JadwalList.getBioskop());
+        final MovieList MovieList = movieLists.get(position);
+        holder.harga.setText(MovieList.getHarga());
+        holder.bioskop.setText(MovieList.getBioskop());
 
 
     }
@@ -63,7 +63,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
     @Override
     public int getItemCount() {
         //banyaknya list
-        return jadwalLists.size();
+        return movieLists.size();
     }
 }
 

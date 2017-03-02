@@ -1,7 +1,9 @@
 package net.krearive.ibacor;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
 
 public class DetailActivity extends AppCompatActivity {
     //Creating a List of moviees
@@ -43,24 +45,13 @@ public class DetailActivity extends AppCompatActivity {
     private int idPosition;
     ImageView detailposter;
     TextView detailgenre;
+    String idKota;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         //terima data
-
-        //sambungin ke xml
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        //inisialisasi recyclerview
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        listMovies = new ArrayList<>();
-
-        getData();
-
         idJudul = getIntent().getStringExtra(Config.TAG_MOVIE);
         idGenre = getIntent().getStringExtra(Config.TAG_GENRE);
         idPoster = getIntent().getStringExtra(Config.TAG_POSTER);
@@ -75,7 +66,16 @@ public class DetailActivity extends AppCompatActivity {
         Picasso.with(getApplicationContext())
                 .load(idPoster)
                 .into(detailposter);
+        //sambungin ke xml
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        //inisialisasi recyclerview
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
+        listMovies = new ArrayList<>();
+
+        getData();
 
 //        //sambungin ke xml
 //        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -94,7 +94,11 @@ public class DetailActivity extends AppCompatActivity {
         //kasih loading
         final ProgressDialog loading = ProgressDialog.show(this, "Loading Data", "Mohon bersabar",false,false);
 
-        JsonObjectRequest ambildata = new JsonObjectRequest(Request.Method.GET, Config.DATA_URL, null, new Response.Listener<JSONObject>() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        idKota = prefs.getString(Config.TAG_ID,"14");
+        Log.i("idkota ",""+idKota);
+
+        JsonObjectRequest ambildata = new JsonObjectRequest(Request.Method.GET, Config.DATA_URL+"k="+Config.DATA_KEY+"&id="+idKota , null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 //kalau berhasil ambil url
@@ -102,28 +106,22 @@ public class DetailActivity extends AppCompatActivity {
                     loading.dismiss();//hilangkan loading
                     JSONArray array = response.getJSONArray("data");
 
-                    for (int i = 0; i < array.length(); i++){
-                        JSONObject json = array.getJSONObject(i);
-                        Log.i("JSON ",""+json); //nampilin info
-                        MovieList movie = new MovieList();
-
+                        JSONObject json = array.getJSONObject(idPosition);
                         JSONArray arrayjadwal = json.getJSONArray("jadwal");
                         for (int ih = 0; ih < arrayjadwal.length(); ih++){
-                            JSONObject objectJadwal = arrayjadwal.getJSONObject(0);
+                            MovieList movie = new MovieList();
+                            JSONObject objectJadwal = arrayjadwal.getJSONObject(ih);
                             Log.i("JSON jadwal ",""+objectJadwal); //nampilin info
                             movie.setHarga(objectJadwal.getString(Config.TAG_HARGA));
                             movie.setBioskop(objectJadwal.getString(Config.TAG_BIOSKOP));
-
+                            listMovies.add(movie);
                         }
-
-                        listMovies.add(movie);
-                    }
                     setAdapter(listMovies);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.i("Errornya",""+e);
-                    Toast.makeText(DetailActivity.this, "Errornya"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.i("Errornyaa pars",""+e);
+                    Toast.makeText(DetailActivity.this, "Errornyaa kon"+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -143,11 +141,11 @@ public class DetailActivity extends AppCompatActivity {
     private void setAdapter(List<MovieList> listMovies) {
 
         //Finally initializing our adapter
-        adapter = new DetaillAdapter(listMovies, this);
+        adapter = new DetailAdapter(listMovies, this);
         //Adding adapter to recyclerview
-        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
-        alphaAdapter.setFirstOnly(false);
-        recyclerView.setAdapter(alphaAdapter);
+        SlideInRightAnimationAdapter animationAdapter = new SlideInRightAnimationAdapter(adapter);
+        animationAdapter.setFirstOnly(false);
+        recyclerView.setAdapter(animationAdapter);
 //            recyclerView.setAdapter(adapter);
     }
 

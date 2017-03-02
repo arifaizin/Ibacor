@@ -48,7 +48,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>{
             duration = (TextView) itemView.findViewById(R.id.duration);
             harga = (TextView) itemView.findViewById(R.id.harga);
             poster = (ImageView) itemView.findViewById(R.id.gambar);
-
             ///
             cardView = (CardView) itemView.findViewById(R.id.cardview);
 
@@ -86,7 +85,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder>{
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Judulnya"+movieList.getMovie()+"loh.."+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Judulnya "+movieList.getMovie()+" loh..", Toast.LENGTH_SHORT).show();
 //
                 Intent pindah = new Intent(context, DetailActivity.class);
                 //kirim data
